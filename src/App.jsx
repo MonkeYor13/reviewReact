@@ -1,9 +1,10 @@
-import Dormitorio from "./UsoDeContexto/CardContexto"
+import CardContexto from "./UsoDeContexto/CardContexto"
 import DatosContexto from "./UsoDeContexto/DatosContexto"
+
 function App() {
   return (
     <DatosContexto>
-      <Dormitorio />
+      <CardContexto />
     </DatosContexto>
   )
 }
