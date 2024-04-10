@@ -3,10 +3,11 @@ import { useContext, useEffect } from "react"
 
 
 export default function CardContexto() {
-    const { apellido, listaInvitados, pastel, cantarCancion, listameProductos, productos } = useContext(Contexto);
+    const { apellido, listaInvitados, pastel, cantarCancion, listameProductos, productos, imagen } = useContext(Contexto);
 
     useEffect(() => {
         listameProductos();
+        
     }, []);
 
 
@@ -18,9 +19,14 @@ export default function CardContexto() {
             <button onClick={cantarCancion}>Cantar Cumple!</button>
             <button onClick={listameProductos} >Mostrar Productos</button>
             {productos.map((item)=>(
-                // eslint-disable-next-line react/jsx-key
-                <p>name: {item.name}</p>
+                <div key={item.id}> 
+                    <p>Nombre: {item.name}</p>
+                    <p>Descripcion: {item.description}</p>
+                    <p>Precio: {item.price}</p>
+                </div>
             ))}
+            <img src={imagen} alt="" />
+           
         </>
     )
 }
