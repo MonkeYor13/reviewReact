@@ -31,7 +31,7 @@ export default function DatosContexto(props) {
     //---------------------
 
     const [estado, setEstado] = useState([])
-    const [imagen, setImagen] = useState([])
+
 
     //creamos nuestra funtion asycrona ya que useEffe ya lo es y no podemos crearla directamente alli
     const listameProductos = async () => {
@@ -42,26 +42,30 @@ export default function DatosContexto(props) {
         setEstado(res.data.data) //aqui guardamos los datos de la API para luego renderizar el ocmponenete con useState  con Map
     }
 
+    const [imagenes, setImagenes] = useState([]);
 
-    const listameImagen = async () => {
-        const imag = await axios.get('https://rickandmortyapi.com/api/character/');
-        console.log(imag.data, 'imagen');
-        setImagen(imag.data);
+    const obtenerImagenes = async () => {
+        try {
+            const respuesta = await axios.get('https://picsum.photos/v2/list');
+            setImagenes(respuesta.data);
+            console.log(respuesta.data, 'images')
+        } catch (error) {
+            console.error('Error al obtener imágenes:', error);
+        }
     }
 
+        // useEffect(() => {
+        //     obtenerImagenes();
+        // }, []);
 
-    useEffect(() => {
-        listameImagen()
-    }, []);
 
-
-    return (
-        <>
-            <Contexto.Provider value={{
-                apellido, listaInvitados, pastel, cantarCancion, productos: estado, listameProductos, imagen: imagen
-            }} >
-                {children}
-            </Contexto.Provider>
-        </>
-    )
-}
+        return (
+            <>
+                <Contexto.Provider value={{
+                    apellido, listaInvitados, pastel, cantarCancion, productos: estado, listameProductos, imagen: imagenes, obtenerImagenes
+                }} >
+                    {children}
+                </Contexto.Provider>
+            </>
+        )
+    }
